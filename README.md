@@ -49,18 +49,27 @@ The Cluster is ready for use , since this is test cluster i havenot created the 
 ## setup Jenkins,
   To setup CICD we need to deploy jekins and its slaves on cluster. the jenkins/setup.sh will do that instatllation. 
 
-  Once the jenkins is up configure them as admin user
+  Once the jenkins is up configure them as admin user; and install required plugins.
   
   Using jenkins/deploy.groovy we can deploy the applicaion on the cluster.
 
 
 ## Docker private repo setup
+  Setup private repo using below script
+  #k8sleveltest3/private_docker_repo/setup.sh
+  
 
 ## Docker image scanner
 
+   add-on will deploy "Cilium" as image scanner
+
+
 ## Deploy Istio
 
+
 ## Deploy K8s DashBoard
+
+      Deployed as part of add-ons
 
 ## using Terraform destory we can delete cluster setup.
  
