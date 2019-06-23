@@ -1,11 +1,11 @@
 # AIM:
-  => Automatically Deploy Highly Available K8s cluster on GCP with add-ons listed below.
-	  => Create CI/CD pipeline to deploy "mediawiki" application from github using helm.
-  => Setup Docker private repository.
-  => Setup Vulnerability scaner(clair)
-  => Deploy Nginx ingress controller 
-  => Setup Istio
-  => Setup k8s-dashboard
+  - Automatically Deploy Highly Available K8s cluster on GCP with add-ons listed below.
+  - Create CI/CD pipeline to deploy "mediawiki" application from github using helm.
+  - Setup Docker private repository.
+  - Setup Vulnerability scaner(clair)
+  - Deploy Nginx ingress controller 
+  - Setup Istio
+  - Setup k8s-dashboard
   
 # Add-ons:
 1)	Nginx ingress controller 
