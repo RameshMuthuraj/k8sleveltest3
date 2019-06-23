@@ -19,10 +19,10 @@
 #git clone <>
 2)	Change directory to clusterbuild/terrafrom, and  create GCP  service account with ComputeAdmin, ServiceAccount User, StorageAdmin role and download the json authentication file using below URL and save to  dir  clusterbuild/terrafrom  URL# https://console.cloud.google.com/apis/credentials/serviceaccountkey?_ga=2.85288474.-260090499.1561174311
 
-# cd clusterbuild/terrafrom
-# terrafrom init ; terrafrom plan; terrafrom apply
+###### cd clusterbuild/terrafrom
+###### terrafrom init ; terrafrom plan; terrafrom apply
 
-#t#Steps Involved
+## Steps Involved
  This terradata form will create GCP AutoScalling group for WORKER, MASTER, for enterprise setup we can create PKI, ETCD,INFRA(for infrapods).
  
  Instances created within this autos calling group use the template created by terrrafrom which has the Startup script to setup cluster components based on Autoscalling group Name.
