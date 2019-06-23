@@ -1,6 +1,6 @@
-#tAIM:
+# AIM:
   Deploy Highly Available K8s cluster on GCP with listed add-ons and create Ci/CD pipeline to deploy minikube application from github using helm.
-#tAdd-ons:
+# Add-ons:
 1)	Nginx ingress controller 
 2)	Jenkins master and executers  
 3)	Docker private repository
@@ -9,11 +9,11 @@
 6)	Grafana
 7)	heapster
 	
-#tPrerequisites:
+## Prerequisites:
 1)	GCP account 
 2)	Terrafrom installed locally 
 
-#tSteps:
+# Steps:
    This Repo will help you install kubernetes cluster with High Availability.
 1)	As a first step clone this repo 
 #git clone <>
