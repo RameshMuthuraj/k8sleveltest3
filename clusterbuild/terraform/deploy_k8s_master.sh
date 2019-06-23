@@ -66,6 +66,6 @@ kubectl apply -f k8sleveltest3/add-ons
 kubectl apply -f k8sleveltest3/add-ons
 
 ##install jenkins
-./k8sleveltest3/jenkins-kubernetes/setup.sh
+./k8sleveltest3/jenkins/setup.sh
  
 
