@@ -55,13 +55,14 @@ The Cluster is ready for use , since this is test cluster i havenot created the 
 
 
 ## Docker private repo setup
-  Setup private repo using below script
-  #k8sleveltest3/private_docker_repo/setup.sh
+
+     Setup private repo using below script
+     #k8sleveltest3/private_docker_repo/setup.sh
   
 
 ## Docker image scanner
 
-   add-on will deploy "Cilium" as image scanner
+      add-on will deploy "Cilium" as image scanner
 
 
 ## Deploy Istio
