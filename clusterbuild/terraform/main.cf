@@ -1,0 +1,137 @@
+// Configure the Google Cloud provider
+provider "google" {
+ credentials = "${file("<auth json file>")}"
+ project     = "<project name>"
+ region      = "us-west1"
+}
+
+
+//Create master autoscalling group
+resource "google_compute_autoscaler" "master" {
+  name   = "my-master-asg"
+  zone   = "us-west1-a"
+  target = "${google_compute_instance_group_manager.master.self_link}"
+
+  autoscaling_policy {
+    max_replicas    = 3
+    min_replicas    = 1
+    cooldown_period = 60
+
+    cpu_utilization {
+      target = 0.9
+    }
+  }
+}
+
+resource "google_compute_instance_template" "master" {
+  name           = "my-instance-template"
+  machine_type   = "n1-standard-4"
+  can_ip_forward = false
+
+  tags = ["master", "yes"]
+
+  disk {
+    source_image = "${data.google_compute_image.centos-7.self_link}"
+  }
+  
+ metadata_startup_script = "${file("./deploy_k8s_master.sh")}"
+ 
+  network_interface {
+    network = "default"
+	access_config {
+    }
+	
+  }
+   
+  metadata = {
+    foo = "bar"
+  }
+
+  service_account {
+    scopes = ["userinfo-email", "compute-ro", "storage-ro"]
+  }
+}
+
+resource "google_compute_target_pool" "master" {
+  name = "my-master-pool"
+}
+
+resource "google_compute_instance_group_manager" "master" {
+  name = "my-master-igm"
+  zone = "us-west1-a"
+
+  instance_template  = "${google_compute_instance_template.master.self_link}"
+  target_pools       = ["${google_compute_target_pool.master.self_link}"]
+  base_instance_name = "master"
+}
+
+data "google_compute_image" "centos-7" {
+    family  = "centos-7"
+    project = "centos-cloud"
+}
+
+//Create Worker autoscaling group
+
+resource "google_compute_autoscaler" "worker" {
+  name   = "my-autoscaler"
+  zone   = "us-west1-a"
+  target = "${google_compute_instance_group_manager.worker.self_link}"
+
+  autoscaling_policy {
+    max_replicas    = 3
+    min_replicas    = 1
+    cooldown_period = 60
+
+    cpu_utilization {
+      target = 0.9
+    }
+  }
+}
+
+resource "google_compute_instance_template" "worker" {
+  name           = "my-worker-template"
+  machine_type   = "n1-standard-4"
+  can_ip_forward = false
+
+  tags = ["worker", "yes"]
+
+  disk {
+    source_image = "${data.google_compute_image.centos-7.self_link}"
+  }
+  
+ metadata_startup_script = "${file("./deploy_k8s_worker.sh")}"
+ 
+  network_interface {
+    network = "default"
+	access_config {
+    }
+	
+  }
+   
+  metadata = {
+    foo = "bar"
+  }
+
+  service_account {
+    scopes = ["userinfo-email", "compute-ro", "storage-ro"]
+  }
+}
+
+resource "google_compute_target_pool" "worker" {
+  name = "my-worker-pool"
+}
+
+resource "google_compute_instance_group_manager" "worker" {
+  name = "my-worker"
+  zone = "us-west1-a"
+
+  instance_template  = "${google_compute_instance_template.worker.self_link}"
+
+  target_pools       = ["${google_compute_target_pool.worker.self_link}"]
+  base_instance_name = "worker"
+}
+
+data "google_compute_image" "centos-7" {
+    family  = "centos-7"
+    project = "centos-cloud"
+}
